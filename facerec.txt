@@ -1,3 +1,20 @@
 
 
 face detection, which detects the presence and location of a face in an image, but does not identify it.
+
+import cv2
+cap=cv2.VideoCapture(0)
+classifier=cv2.CascadeClassfier("haarcascade_frontalface_default.xml")
+while True:
+    ret,frame=cap.read()
+    if ret:
+        faces=classifier.detectMultiscale(frame)
+        for face in faces:
+            x,y,w,h=face
+            frame=cv2.rectangle(frame,(x,y),(x+w ,y+h),(0,0,255),4)
+        cv2.imgshow("My window",frame)
+    key=cv2.waitkey(1000)
+    if key==ord("q"):
+        break
+cap.release()
+cv2.destroyAllWindows()
